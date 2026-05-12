@@ -1,0 +1,28 @@
+ $dody-bg:#000;
+ $black:#000;
+ $primary: #B4F9DC;
+ $trird: #D1D5FF;
+ .card{
+    background-color: $primary;
+    color: $black;
+    margin-top: 30px;
+    text-align: center;
+ }
+
+ .btn-info
+ {
+     background-color: $trird;
+    color: $black;
+    width: fit-content;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-color: $trird;
+ }
+
+
+
+ .borde
+ {
+    background-color: $trird;
+    color: $black;
+ }

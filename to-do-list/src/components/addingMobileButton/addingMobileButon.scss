@@ -1,0 +1,14 @@
+  $dody-bg:#000;
+ $black:#000;
+ $primary: #B4F9DC;
+ $trird: #D1D5FF;
+ 
+ .btn-info
+ {
+     background-color: $trird;
+    color: $black;
+    width: fit-content;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-color: $trird;
+ }
