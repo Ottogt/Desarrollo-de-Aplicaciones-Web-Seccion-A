@@ -1,28 +1,47 @@
-import {create} from 'zustand' 
+// store.ts
+import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+import * as goalApi from './API/goalAPI'
 
-
-export type goal = {
-    id: number;
-    name: string;
-    description: string;
-    dueDate: string;
+export type goal={
+  _id: string,
+  name: string,
+  description: string
+  duedate: string
 }
 
 type GoalState = {
-    goals: goal[];
-    setGoals: (goals: goal[]) => void;
-    removeGoals: (goal:goal) => void;
-    addGoals: (goal: goal) => void;
+  goals: goal[]
+  setGoals: (goals: goal[]) => void
+  fetchGoals: () => Promise<void>
+  removeGoal: (goal: goal) => Promise<void>
+  addGoal: (goal: goal) => Promise<void>
 }
 
+
 export const useGoalStore = create<GoalState>()(
-    devtools((set) => ({
-        goals: [],
-        setGoals: (goals) => set({ goals }, false, 'setGoals'),
-        removeGoals: (goal) => set((state) => ({ goals: state.goals.filter(g => g.id !== goal.id) })),
-        addGoals: (goal) => set((state) => ({ goals: [...state.goals, goal] }),false , 'addGoal'),
+  devtools(
+    (set) => ({
+      goals: [],
+      setGoals: (goals: goal[]) => set({ goals }, false, 'setGoals'),
+      fetchGoals: async () => {
+        const data = await goalApi.getGoals();
+        set({ goals: data }, false, 'fetchGoals');
+      },
+      removeGoal: async (goal: goal) => {
+        await goalApi.removeGoal(goal._id);
+        set((state) => ({ goals: state.goals.filter((g: goal) => g._id !== goal._id) }), false, 'removeGoal');
+      },
+      addGoal: async (goal: goal) => {
+        const newGoal = await goalApi.addGoal(goal);
+        set((state) => ({ goals: [...state.goals, newGoal] }), false, 'addGoal');
+      },
     }),
-    { name: 'GoalS' }   
+    { name: 'goal-store' }
+  )
 )
-);  
+
+
+export async function initializeGoals() {
+  await useGoalStore.getState().fetchGoals();
+}

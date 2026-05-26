@@ -7,35 +7,33 @@ import { useTaskStore } from '../../store/taskStore'
 import type { goal } from '../../store/goalStore'
 import type { task } from '../../store/taskStore'
  
-  const {removeTasks} = useTaskStore.getState();
-const {removeGoals} = useGoalStore.getState();
+const removeTask = useTaskStore.getState().removeTask;
+const removeGoal = useGoalStore.getState().removeGoal;
 
-function item(props:task | goal) {
+function Item(props:task | goal) {
   
 
   
-    const IsactiveMenu = useMenuStore((state) => state.menu.active);
+  const IsactiveMenu = useMenuStore((state) => state.menu.active);
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.stopPropagation ();
-  if(IsactiveMenu === 'task'){
-    removeTasks(props as task);
-  } else{
-    removeGoals(props as goal);
-  }
-  
+    e.stopPropagation();
+    if(IsactiveMenu === 'task'){
+      void removeTask(props as task);
+    } else{
+      void removeGoal(props as goal);
+    }
   };
     
   
   
-    return (
+  return (
     <Card style={{ width: '18rem' }}>
-     
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
         <Card.Text className='fw-bold'>Descripcion</Card.Text>
         <Card.Text>{props.description}</Card.Text>
         <Card.Text className='fw-bold'>Fecha Vencimiento</Card.Text>
-         <Card.Text>{props.dueDate}</Card.Text>
+        <Card.Text>{props.duedate}</Card.Text>
         <Button variant="info" onClick={(e) => handleRemove(e)}>
           Eliminar
         </Button>
@@ -44,4 +42,4 @@ function item(props:task | goal) {
   );
 }
 
-export default item;
+export default Item;

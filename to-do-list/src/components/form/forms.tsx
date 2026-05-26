@@ -19,8 +19,8 @@ function FormTaskAndGoal({ onAdd }: FormTaskAndGoalProps) {
   const inputRefDescription = useRef<HTMLTextAreaElement>(null);
   const inputRefDueDate = useRef<HTMLInputElement>(null); 
   const isactiveMenu = useMenuStore((state) => state.menu.active);
-  const addTasks = useTaskStore((state) => state.addTasks);
-  const addGoals= useGoalStore((state) => state.addGoals);
+  const addTasks = useTaskStore((state) => state.addTask);
+  const addGoals= useGoalStore((state) => state.addGoal);
   
   
   
@@ -32,10 +32,10 @@ function FormTaskAndGoal({ onAdd }: FormTaskAndGoalProps) {
 
     if (name && description && dueDate) { 
       if (isactiveMenu === 'task') {
-        addTasks({ id: Date.now(), name, description, dueDate });
+        addTasks({ _id: String(Date.now()), name, description, duedate: dueDate });
       } else {
         
-        addGoals({ id: Date.now(), name, description, dueDate });
+        addGoals({ _id: String(Date.now()), name, description, duedate: dueDate });
       }
 
     if (onAdd) {
@@ -61,7 +61,7 @@ function FormTaskAndGoal({ onAdd }: FormTaskAndGoalProps) {
         <Form.Control type="date" ref={inputRefDueDate}  />
       </Form.Group>
       <Button type="submit" variant="info" >
-        Agregar Meta
+        {isactiveMenu === 'task' ? 'Agregar Tarea' : 'Agregar Meta'}
       </Button>
     </Form>
    </div>

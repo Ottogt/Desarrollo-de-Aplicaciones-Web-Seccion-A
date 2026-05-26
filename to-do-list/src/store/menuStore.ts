@@ -1,10 +1,9 @@
-import {create} from 'zustand' 
-import { devtools } from 'zustand/middleware'
-
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 
 type menu = {
-  active: string;
+    active:string;
 }
 
 type MenuState = {
@@ -13,13 +12,12 @@ type MenuState = {
 }
 
 
-
 export const useMenuStore = create<MenuState>()(
-    devtools((set) => ({
-        menu: { active: 'tasks' },
-        setActive: (active) => set(() => ({ menu: {active} }), false, 'setActive'),
+  devtools(
+    (set) => ({
+      menu: { active: 'task' },
+      setActive: (active) => set(() => ({menu:{ active }}), false, 'setActive'),
     }),
-    { name: 'menu-store' }   
+    { name: 'menu-store' }
+  )
 )
-);
-   
