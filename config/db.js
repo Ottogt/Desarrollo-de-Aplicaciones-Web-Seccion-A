@@ -3,7 +3,7 @@ const mysql = require("mysql2/promise");
 const   connetMysql = async () => {
     try {
         const pool = mysql.createPool({
-            host: localhost,
+            host: "localhost",
             port:3306,
             user:"app_user",
             password:"app_password",
@@ -12,7 +12,7 @@ const   connetMysql = async () => {
         return pool;
     }   catch (error) { 
         console.error("Error connecting to MySQL database:", error);
-        procecess.exit(1);
+        process.exit(1);
 
     }};
     

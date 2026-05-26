@@ -9,7 +9,7 @@ const DATABASE = process.env.DATABASE;
         try {
             if (DATABASE === 'MYSQL') {
                 const[response]= await db.query('SELECT * FROM goals');
-                res.status(200).json(goals);
+                res.status(200).json(response);
             }
             return res.status(500).json({ error: 'Invalid DATABASE env variable' });
     
@@ -55,11 +55,11 @@ const DATABASE = process.env.DATABASE;
 
         if ( req.body && req.body.id) {
 
-            let goalId = req.params.id;
+            const goalId = req.body.id;
 
             try {
                 if (DATABASE === 'MYSQL') {
-                    await db.query('DELETE FROM goals WHERE id = ?', [id]);
+                    await db.query('DELETE FROM goals WHERE id = ?', [goalId]);
                     return res.status(200).json({ message: 'Goal removed successfully' });
                 } else {
                     return res.status(500).json({ error: 'Invalid DATABASE env variable' });

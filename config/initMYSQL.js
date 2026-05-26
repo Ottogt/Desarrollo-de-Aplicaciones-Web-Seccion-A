@@ -1,8 +1,8 @@
-const {connetMySQL} = require('./db.js');
+const connetMysql = require('./db.js');
 
 async function initMysql() {
     try {
-        const db = await connetMySQL();
+        const db = await connetMysql();
 
         await db.query(`
             CREATE TABLE IF NOT EXISTS goals (
@@ -30,7 +30,7 @@ async function initMysql() {
          return db;
     } catch (error) {
         console.error("Error al inicializar MySQL:", error);
-       throw
+        throw error;
     }       
 }
 
