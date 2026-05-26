@@ -1,9 +1,18 @@
 {
-  "dependencies": {
-    "bootstrap": "^5.3.8",
-    "react-bootstrap": "^2.10.10"
+  "name": "backeend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
   },
-  "devDependencies": {
-    "sass": "^1.99.0"
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.6",
+    "debug": "~2.6.9",
+    "express": "~5.2.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^3.22.3"
   }
 }
